@@ -2,7 +2,7 @@
   "name": "twitterclone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/Adarsh-V-101/TwitterClone/issues"
   },
-  "homepage": "https://github.com/Adarsh-V-101/TwitterClone#readme"
+  "homepage": "https://github.com/Adarsh-V-101/TwitterClone#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1"
+  }
 }
