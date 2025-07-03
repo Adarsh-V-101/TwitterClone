@@ -32,7 +32,7 @@ exports.postRegister = async (req, res) => {
                 });
                 let token = tokenGenerator(user);
                 res.cookie('token', token);
-                res.status(201).send('SUCCESS: User created successfully');
+                res.status(201).redirect('post/dashboard');
 
 
             })
