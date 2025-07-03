@@ -32,7 +32,7 @@ exports.postRegister = async (req, res) => {
                 });
                 let token = tokenGenerator(user);
                 res.cookie('token', token);
-                res.status(201).redirect('/shop');
+                res.status(201).send('SUCCESS: User created successfully');
 
 
             })
@@ -48,6 +48,26 @@ exports.getLogin = (req, res) => {
 }
 
 exports.postLogin = (req, res) => {
+    let {email, password} = req.body;
+    if(!email|| !password){
+        return res.status(400).send('All fields are required');
+    }
+    let user = userModel.findOne({email: email})
+    if(!user){
+        res.status(400).send("user not found");
+    }
+    else{
+        bcrypt.compare(password, user.password, (err, result) =>{
+            if(!result){
+                return res.status(400).send('email or password is incorrect');
+            }
+            else{
+                let token = tokenGenerator(user);
+                res.cookie('token', token);
+                res.status(200).redirect('/home');
+            }
+        })
+    }
 
 }
 

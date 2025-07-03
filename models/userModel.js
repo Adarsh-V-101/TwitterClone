@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/twitterClone')
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
-
 
 const userSchema = mongoose.Schema({
     username: String,
