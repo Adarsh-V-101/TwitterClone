@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
     <div class="max-w-2xl mx-auto py-10">
         <header class="mb-8">
-            <h2 class="text-xl font-bold text-gray-800">Welcome, <%= user.name %>!</h2>
+            <h2 class="text-xl ml-8 font-bold text-gray-800">Welcome, <%= user.username %> 👀✋!</h2>
 
         </header>
-        <section class="bg-white rounded-lg shadow p-6 mb-8">
+        <section class="bg-white rounded-lg shadow p-6 m-8 mb-8">
             <form action="/post/create" method="POST" class="space-y-4">
                 <label for="postContent" class="block text-gray-700 font-medium">Create a Post</label>
                 <textarea id="postContent" name="content" rows="2" maxlength="200" required
@@ -27,19 +29,23 @@
             </form>
         </section>
         <!-- Example: Posts list could go here -->
-        <div class="bg-white rounded-lg shadow p-6">
+        <a href="/logout" class="p-2 ml-8 rounded-lg bg-red-800 text-white">Logout</a>
+        <div class="bg-white rounded-lg m-8 shadow p-6">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Posts</h2>
             <ul id="post-list" class="space-y-4">
-
-                <% posts.forEach(post =>{ %>
-                    <h1> <%= posts.user.name %></h1>
-                    <p> <%= posts.content %></p>
-                <% }) %>
-                <!-- Posts will be rendered here -->
+                <% posts.forEach(post=>{ %>
+                    <div class="border-1 p-2">
+                        <h1 class="text-l text-blue-900"> @<%= user.username %>
+                        </h1>
+                        <p class="font-bold">
+                            <%= post.content %>
+                        </p>
+                    </div>
+                    <% }) %>
             </ul>
         </div>
     </div>
 
-    <a href="/logout">Logout</a>
 </body>
+
 </html>

@@ -4,6 +4,6 @@ const userController = require('../controller/postController')
 const isLoggedin = require('../middleware/isLoggedin');
 
 router.get('/dashboard', isLoggedin, userController.dashboard);
-router.post('/crete', isLoggedin, userController.createPost)
+router.post('/create', isLoggedin, userController.createPost)
 
 module.exports = router;

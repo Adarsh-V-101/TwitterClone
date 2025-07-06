@@ -6,8 +6,7 @@ module.exports = async (req ,res, next) =>{
     if(!token){
         return res.redirect('/login');
     }
-    const decoded = jwt.verify(token,  "abcdabcd");
-    console.log(process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     let user = await userModel.findOne({email: decoded.email}).select('-password');
     if(!user){

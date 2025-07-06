@@ -15,7 +15,7 @@ exports.postRegister = async (req, res) => {
     try {
         let existinguser = await userModel.findOne({ email: email })
         if (existinguser) {
-            return res.status(400).send('user already exsists')
+            return res.status(400).send('existing user with this email');
         }
 
         bcrypt.genSalt(10, async (err, salt) => {
@@ -29,7 +29,7 @@ exports.postRegister = async (req, res) => {
                     email: email,
                     password: hash
                 });
-                let token = tokenGenerator(user);
+                let token = jwt.sign({ email: user.email, id: user._id }, process.env.JWT_SECRET);
                 res.cookie('token', token);
                 res.status(201).redirect('post/dashboard');
 
@@ -67,7 +67,7 @@ exports.postLogin =async (req, res) => {
             }
 
     
-            const token = jwt.sign({ email: user.email }, "abcdabcd");
+            const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
 
             res.cookie('token', token);
             res.redirect('/post/dashboard');
