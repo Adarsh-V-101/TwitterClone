@@ -35,11 +35,14 @@
             <ul id="post-list" class="space-y-4">
                 <% posts.forEach(post=>{ %>
                     <div class="border-1 p-2">
-                        <h1 class="text-l text-blue-900"> @<%= user.username %>
+                        <h1 class="text-l text-blue-900"> @<%= post.userId.username %>
                         </h1>
                         <p class="font-bold">
                             <%= post.content %>
                         </p>
+                        
+                        <a href="/like/<%= user._id %>">Like</a>
+                        <small class="float-right"> <%= post.date.toLocaleString() %></small>
                     </div>
                     <% }) %>
             </ul>
