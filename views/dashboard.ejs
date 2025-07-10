@@ -41,7 +41,7 @@
                             <%= post.content %>
                         </p>
                         
-                        <a href="/like/<%= user._id %>">Like</a>
+                        <a href="/post/like/<%= post._id %>">Like</a>
                         <small class="float-right"> <%= post.date.toLocaleString() %></small>
                     </div>
                     <% }) %>

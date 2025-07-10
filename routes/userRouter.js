@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controller/userController')
 
 router.get('/', (req, res) => {
-    res.send('Welcome to Twitter Clone');
+    res.redirect('/post/dashboard');
 });
 
 router.get('/register', userController.getRegister);

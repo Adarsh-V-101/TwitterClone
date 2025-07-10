@@ -5,7 +5,7 @@ const isLoggedin = require('../middleware/isLoggedin');
 
 
 router.get('/dashboard', isLoggedin, userController.dashboard);
-router.get('/like', isLoggedin, userController.likePost);
+router.get('/like/:postId', isLoggedin, userController.likePost);
 router.post('/create', isLoggedin, userController.createPost);
 
 module.exports = router;
