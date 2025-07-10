@@ -10,15 +10,15 @@
 
 <body class="bg-gray-100 min-h-screen">
     <div class="max-w-2xl mx-auto py-10">
-        <header class="mb-8">
+        <header class="mb-8 flex justify-between">
             <h2 class="text-xl ml-8 font-bold text-gray-800">Welcome, <%= user.username %> 👀✋!</h2>
-
+            <a href="/profile" class="float-right mx-8">PROFILE</a>
         </header>
         <section class="bg-white rounded-lg shadow p-6 m-8 mb-8">
             <form action="/post/create" method="POST" class="space-y-4">
-                <label for="postContent" class="block text-gray-700 font-medium">Create a Post</label>
+            <label for="postContent" class="block text-gray-700 font-medium">Create a Post</label>
                 <textarea id="postContent" name="content" rows="2" maxlength="200" required
-                    class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                    class="w-full p-3 border border-gray-300 rounded  focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
                     placeholder="What's happening?"></textarea>
                 <div class="flex justify-end">
                     <button type="submit"
@@ -29,9 +29,8 @@
             </form>
         </section>
         <!-- Example: Posts list could go here -->
-        <a href="/logout" class="p-2 ml-8 rounded-lg bg-red-800 text-white">Logout</a>
+        <a href="/logout" class=" p-2 ml-8 rounded-lg bg-red-800 text-white">Logout</a>
         <div class="bg-white rounded-lg m-8 shadow p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Posts</h2>
             <ul id="post-list" class="space-y-4">
                 <% posts.forEach(post=>{ %>
                     <div class="border-1 p-2">
@@ -40,13 +39,20 @@
                         <p class="font-bold">
                             <%= post.content %>
                         </p>
+                      <%  if(post.likes.includes(user._id)){ %>
+                        <a href="/post/like/<%= post._id %>" class="underline-offset-4 "><%= post.likes.length %></a>
+                        <a href="/post/like/<%= post._id %>" class="underline-offset-4">Like</a>
+                        <% } else { %>
+                            <a href="/post/like/<%= post._id %>"><%= post.likes.length %></a>
+                            <a href="/post/like/<%= post._id %>">Like</a>
+                        <% }%>
                         
-                        <a href="/post/like/<%= post._id %>">Like</a>
                         <small class="float-right"> <%= post.date.toLocaleString() %></small>
                     </div>
                     <% }) %>
             </ul>
         </div>
+        
     </div>
 
 </body>

@@ -21,9 +21,6 @@ exports.likePost = async (req, res) => {
 const postId = req.params.postId;
 const userId = req.user._id;
 const post = await postModel.find({_id: postId})
-
-
-
 if(post[0].likes.includes(userId)){
     post[0].likes.pull(userId);
     await post[0].save();
@@ -31,7 +28,5 @@ if(post[0].likes.includes(userId)){
     post[0].likes.push(userId);
     await post[0].save();
 }
-
-
 res.redirect('/post/dashboard');
 }

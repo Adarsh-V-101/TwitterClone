@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - Twitter Clone</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Profile Header -->
+    <div class="bg-white shadow p-6 flex items-center">
+        <img src="https://via.placeholder.com/80" alt="Profile" class="rounded-full w-20 h-20 mr-6">
+        <div>
+            <h2 class="text-2xl font-bold">Username</h2>
+            <p class="text-gray-500">@username</p>
+        </div>
+    </div>
+
+    <!-- Create Post -->
+    <div class="bg-white shadow mt-6 mx-auto max-w-xl rounded-lg p-4">
+        <form>
+            <textarea class="w-full border rounded p-2 resize-none focus:outline-none focus:ring" rows="3" placeholder="What's happening?"></textarea>
+            <div class="flex justify-end mt-2">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600">Post</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Posts List -->
+    <div class="max-w-xl mx-auto mt-6 space-y-4">
+        <!-- Example Post -->
+        <div class="bg-white shadow rounded-lg p-4">
+            <div class="flex items-center mb-2">
+                <img src="https://via.placeholder.com/40" alt="User" class="rounded-full w-10 h-10 mr-3">
+                <div>
+                    <span class="font-semibold">Username</span>
+                    <span class="text-gray-500 text-sm ml-2">@username · 1h</span>
+                </div>
+            </div>
+            <p class="text-gray-800">This is an example post on the profile page.</p>
+        </div>
+        <!-- Add more posts here -->
+    </div>
+</body>
+</html>
