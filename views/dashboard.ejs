@@ -32,10 +32,18 @@
         <a href="/logout" class=" p-2 ml-8 rounded-lg bg-red-800 text-white">Logout</a>
         <div class="bg-white rounded-lg m-8 shadow p-6">
             <ul id="post-list" class="space-y-4">
-                <% posts.forEach(post=>{ %>
+                <% posts.forEach((post)=>{ %>
                     <div class="border-1 p-2">
-                        <h1 class="text-l text-blue-900"> @<%= post.userId.username %>
+                        <h1 class="text-l text-blue-900 inline"> @<%= post.userId.username %>
                         </h1>
+                        
+                        <a href="/post/follow/<%= user._id %>/<%= post._id %>" class="border-1 px-2 rounded-md" > 
+                            <% if (post.userId.followers.includes(user._id)) {  %>
+                                unfollow
+                            <% }else{ %>
+                                Follow
+                            <% }      %>
+                        </a>
                         <p class="font-bold">
                             <%= post.content %>
                         </p>
@@ -50,6 +58,7 @@
                         <small class="float-right"> <%= post.date.toLocaleString() %></small>
                     </div>
                     <% }) %>
+
             </ul>
         </div>
         
