@@ -1,44 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile - Twitter Clone</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- Profile Header -->
-    <div class="bg-white shadow p-6 flex items-center">
-        <img src="https://via.placeholder.com/80" alt="Profile" class="rounded-full w-20 h-20 mr-6">
-        <div>
-            <h2 class="text-2xl font-bold">Username</h2>
-            <p class="text-gray-500">@username</p>
-        </div>
-    </div>
+<!doctype html>
+<html>
 
-    <!-- Create Post -->
-    <div class="bg-white shadow mt-6 mx-auto max-w-xl rounded-lg p-4">
-        <form>
-            <textarea class="w-full border rounded p-2 resize-none focus:outline-none focus:ring" rows="3" placeholder="What's happening?"></textarea>
-            <div class="flex justify-end mt-2">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600">Post</button>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="m-0 p-5 bg-zinc-400">
+
+
+    <div class="  shadow-2xl  bg-blue-400 rounded-md p-6 my-8 mx-5">
+        
+        <div class="rounded-full overflow-hidden w-1/4 float-right m-4 mx-7">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                alt="profile picture" class="w-full h-full object-cover rounded-md" />
+        </div>
+        <h1 class="text-xl font-bold text-white px-4 pt-4">
+            <%= user.username %>
+        </h1>
+        <h1 class="text-xl font-bold text-white px-4 pt-4">Followers = <%= user.followers.length %>
+        </h1>
+        <h1 class="text-xl font-bold text-white px-4 pt-4">Following = <%= user.following.length %>
+        </h1>
+    </div>
+    <section class="bg-white rounded-lg shadow p-6 m-8 mb-8 shadow-2xl">
+        <form action="/post/create" method="POST" class="space-y-4">
+            <label for="postContent" class="block text-gray-700 font-medium">Create a Post</label>
+            <textarea id="postContent" name="content" rows="2" maxlength="200" required
+                class="w-full p-3 border border-gray-300 rounded  focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                placeholder="What's happening?"></textarea>
+            <div class="flex justify-end">
+                <a href="/post/Dashboard" class="bg-green-500 text-white px-5 mx-2 float-left py-2 rounded font-semibold hover:bg-blue-600 transition">Home</a>
+                <button type="submit"
+                    class="bg-blue-500 text-white px-5 py-2 rounded font-semibold hover:bg-blue-600 transition">
+                    Post
+                </button>
             </div>
         </form>
-    </div>
+    </section>
 
-    <!-- Posts List -->
-    <div class="max-w-xl mx-auto mt-6 space-y-4">
-        <!-- Example Post -->
-        <div class="bg-white shadow rounded-lg p-4">
-            <div class="flex items-center mb-2">
-                <img src="https://via.placeholder.com/40" alt="User" class="rounded-full w-10 h-10 mr-3">
-                <div>
-                    <span class="font-semibold">Username</span>
-                    <span class="text-gray-500 text-sm ml-2">@username · 1h</span>
-                </div>
+     <a href="/logout" class=" p-2 ml-8 rounded-lg bg-red-800 text-white">Logout</a>
+     <% posts.forEach(post=>{ %>
+        <div class="bg-white rounded-lg mx-8 my-4 shadow p-6 ">
+            <ul id="post-list" class="space-y-4">
+                    <div class="border-1 p-2 ">
+                        <h1 class="text-l text-blue-900"> @<%= post.userId.username %>
+                        </h1>
+                        <p class="font-bold">
+                            <%= post.content %>
+                        </p>
+                      <%  if(post.likes.includes(user._id)){ %>
+                        <a href="/post/like/<%= post._id %>" class="underline-offset-4 "><%= post.likes.length %></a>
+                        <a href="/post/like/<%= post._id %>" class="underline-offset-4">Like</a>
+                        <% } else { %>
+                            <a href="/post/like/<%= post._id %>"><%= post.likes.length %></a>
+                            <a href="/post/like/<%= post._id %>">Like</a>
+                        <% }%>
+                        
+                        <small class="float-right"> <%= post.date.toLocaleString() %></small>
+                    </div>
+                </ul>
             </div>
-            <p class="text-gray-800">This is an example post on the profile page.</p>
-        </div>
-        <!-- Add more posts here -->
-    </div>
+            <% }) %>
+
+
 </body>
+
 </html>

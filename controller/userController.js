@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const postModel = require('../models/postModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -83,6 +84,10 @@ exports.getLogout = (req, res) => {
     res.redirect('/login');
 }
 
-exports.getProfile = (req, res) => {
-    res.render('profile', { user: req.user });
+exports.getProfile = async (req, res) => {
+    const user = await userModel.findOne({ _id: req.params.userId });
+    const posts = await postModel.find({userId : req.params.userId}).populate('userId', 'username').sort({date: -1})    
+    console.log(posts);
+    
+    res.render('profile', { user, posts });
 }
