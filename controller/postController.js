@@ -43,10 +43,17 @@ exports.getFollow = async (req, res) =>{
     
     if(post.userId.followers.includes(user._id)){
         post.userId.followers.pull(user._id);
+        user.following.pull(post.userId._id);
+        await user.save();
         await post.userId.save();
     }else{
         post.userId.followers.push(user._id);
+        user.following.push(post.userId._id);
+        await user.save();
         await post.userId.save();
     }
+
+    
+
     res.redirect('/post/dashboard');
 }
