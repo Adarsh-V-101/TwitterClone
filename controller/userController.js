@@ -87,7 +87,21 @@ exports.getLogout = (req, res) => {
 exports.getProfile = async (req, res) => {
     const user = await userModel.findOne({ _id: req.params.userId });
     const posts = await postModel.find({userId : req.params.userId}).populate('userId', 'username').sort({date: -1})    
-    console.log(posts);
     
     res.render('profile', { user, posts });
+}
+
+exports.getImg = (req, res) => {
+    res.render('img',{user: req.user});
+}
+
+exports.postImg = async (req, res) => {
+    const picture = req.file ? '/uploads/' + req.file.filename : req.user.profilePic;
+    console.log(picture);
+    
+    let user = await userModel.findByIdAndUpdate({_id:req.params.userId},
+        {profilePic: picture,},{new:true});
+    
+    console.log(user);
+    res.redirect('/profile/' + user._id);
 }

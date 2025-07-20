@@ -52,8 +52,12 @@ exports.getFollow = async (req, res) =>{
         await user.save();
         await post.userId.save();
     }
-
-    
-
     res.redirect('/post/dashboard');
+}
+
+exports.deletePost = async (req, res) =>{
+    const user = await userModel.findOne({_id: req.user._id});
+    user.posts.pull(req.params.postId);
+    await postModel.findOneAndDelete({_id: req.params.postId});
+    res.redirect('/profile/' + req.user._id);
 }
