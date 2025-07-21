@@ -8,30 +8,47 @@
 </head>
 <body class="bg-gray-900 text-white min-h-screen p-4 font-sans">
   <!-- Profile Section -->
-  <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col md:flex-row items-center gap-6">
-    <!-- Profile Picture Upload -->
-    <div class="relative group">
-      <label for="profilePhotoInput" class="cursor-pointer">
-        <img id="profilePhoto"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-          alt="Profile Photo"
-          class="w-32 h-32 object-cover rounded-full border-4 border-indigo-400 shadow-md group-hover:opacity-80 transition">
-        <div
-          class="absolute inset-0 rounded-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-          <span class="text-white text-sm font-medium">Change</span>
-        </div>
-      </label>
-      <input type="file" id="profilePhotoInput" accept="image/*" class="hidden" />
+  <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
+
+  <!-- Profile Picture Upload -->
+  <div class="relative group shrink-0">
+    <label for="profilePhotoInput" class="cursor-pointer">
+      <img
+        id="profilePhoto"
+        src="<%= user.profilepic %>"
+        alt="Profile Photo"
+        class="w-32 h-32 object-cover rounded-full border-4 border-indigo-400 shadow-md group-hover:opacity-80 transition"
+      />
+      
+  </div>
+
+  <!-- User Info & Stats -->
+  <div class="flex-1 space-y-3 w-full">
+    <!-- Name and Bio -->
+    <div class="text-center md:text-left">
+      <h1 class="text-2xl font-bold text-white"><%= user.username %></h1>
+      <p class="text-gray-300 text-sm mt-1"><%= user.bio || "No bio added." %></p>
     </div>
 
-    <!-- User Info -->
-    <div class="text-center md:text-left space-y-2">
-      <h1 class="text-2xl font-bold text-white"><%= user.username %></h1>
-      <p>Followers: <%= user.followers.length %></p>
-      <p>Following: <%= user.following.length %></p>
-      <a href="/img" class="underline">edit profile</a>
+    <!-- Followers/Following Stats -->
+    <div class="flex justify-center md:justify-start space-x-6 text-gray-400 text-sm">
+      <div>
+        <span class="font-bold text-white"><%= user.followers.length %></span> Followers
+      </div>
+      <div>
+        <span class="font-bold text-white"><%= user.following.length %></span> Following
+      </div>
+    </div>
+
+    <!-- Edit Profile -->
+    <div class="text-center md:text-left">
+      <a href="/img"
+        class="inline-block mt-2 text-sm text-blue-400 hover:underline hover:text-blue-500 transition">
+        ✏️ Edit Profile
+      </a>
     </div>
   </div>
+</div>
 
   <!-- Create Post -->
   <section class="max-w-4xl mx-auto mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">

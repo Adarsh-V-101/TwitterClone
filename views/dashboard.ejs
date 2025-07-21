@@ -9,12 +9,14 @@
 </head>
 
 <body class="bg-gray-900 text-white min-h-screen font-sans">
+
+
   <div class="max-w-3xl mx-auto py-10 px-4">
 
     <!-- Header -->
     <header class="flex justify-between items-center mb-8 bg-gray-800 p-5 rounded-xl shadow-md">
       <h2 class="text-2xl font-bold text-indigo-400">👀 Welcome, <%= user.username %>!</h2>
-      <div class="space-x-3">
+      <div class="space-x-3 space-y-2 ">
         <a href="/profile/<%= user._id %>"
           class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md shadow transition">
           Profile
@@ -48,7 +50,7 @@
         <div class="bg-gray-800 rounded-xl shadow-md p-5">
           <div class="flex justify-between items-start">
             <div>
-              <h2 class="text-indigo-400 font-semibold">@<%= post.userId.username %></h2>
+              <h2 class="text-indigo-400 font-semibold"> <img src="<%= post.userId.profilepic %>" alt="" class="w-5 h-5 cover inline rounded-xl"> @<%= post.userId.username %></h2>
               <p class="text-white mt-1"><%= post.content %></p>
             </div>
             <small class="text-gray-500"><%= post.date.toLocaleString() %></small>
@@ -69,14 +71,17 @@
             </div>
 
             <!-- Follow/Unfollow -->
-            <a href="/post/follow/<%= user._id %>/<%= post._id %>"
-              class="text-sm bg-sky-600 hover:bg-sky-700 text-white px-3 py-1 rounded transition">
-              <% if (post.userId.followers.includes(user._id)) { %>
-                Unfollow
-              <% } else { %>
-                Follow
-              <% } %>
-            </a>
+             <% if(post.userId._id.toString() !== user._id.toString()){ %>
+              <a href="/post/follow/<%= user._id %>/<%= post._id %>"
+                class="text-sm bg-sky-600 hover:bg-sky-700 text-white px-3 py-1 rounded transition">
+                <% if (post.userId.followers.includes(user._id)) { %>
+                  Unfollow
+                <% } else { %>
+                  Follow
+                <% } %>
+              </a>
+
+            <% } %>
           </div>
         </div>
       <% }) %>

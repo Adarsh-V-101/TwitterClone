@@ -8,17 +8,16 @@ exports.dashboard = async (req , res) =>{
 }
 
 exports.createPost = async (req, res) => {
-    let {content} = req.body;
+    let content= req.body.content?.trim();
     const user = await userModel.findOne({_id: req.user._id});
-    
-     const post = await postModel.create({
-        userId: req.user._id,
-        content: content,
-    })
-    console.log(post._id);
-    user.posts.push(post._id);
-    await user.save();
-    
+    if(content){
+        const post = await postModel.create({
+           userId: req.user._id,
+           content: content,
+       })
+       user.posts.push(post._id);
+       await user.save();
+    }
     
     res.redirect('/post/dashboard');
 }
@@ -40,6 +39,10 @@ res.redirect('/post/dashboard');
 exports.getFollow = async (req, res) =>{
     const user = await userModel.findOne({_id: req.params.followerId});
     const post = await postModel.findOne({_id: req.params.postId}).populate('userId', 'followers');
+
+      if (String(post.userId._id) === String(user._id)) {
+    return res.redirect('/post/dashboard'); // or show message
+  }
     
     if(post.userId.followers.includes(user._id)){
         post.userId.followers.pull(user._id);
@@ -57,7 +60,8 @@ exports.getFollow = async (req, res) =>{
 
 exports.deletePost = async (req, res) =>{
     const user = await userModel.findOne({_id: req.user._id});
-    user.posts.pull(req.params.postId);
     await postModel.findOneAndDelete({_id: req.params.postId});
+     user.posts.pull(req.params.postId);
+    await user.save();
     res.redirect('/profile/' + req.user._id);
 }

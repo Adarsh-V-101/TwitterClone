@@ -47,16 +47,14 @@ exports.getLogin = (req, res) => {
     res.render('login')
 }
 
-exports.postLogin =async (req, res) => {
+exports.postLogin = async (req, res) => {
     let { email, password } = req.body;
+    let user = await userModel.findOne({ email: email })
     if (!email || !password) {
         return res.status(400).send('All fields are required');
     }
-    let user =await userModel.findOne({ email: email })
-    if (!user) {
-        res.status(400).send("user not found");
-    }
     else {
+        
         bcrypt.compare(password, user.password, (err, result) => {
             if (err) {
                 console.error('Error comparing passwords:', err);
@@ -67,16 +65,15 @@ exports.postLogin =async (req, res) => {
                 return res.status(400).send('Email or password is incorrect');
             }
 
-    
+
             const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
 
             res.cookie('token', token);
             res.redirect('/post/dashboard');
         })
 
-        
-    }
 
+    }
 }
 
 exports.getLogout = (req, res) => {
@@ -86,22 +83,32 @@ exports.getLogout = (req, res) => {
 
 exports.getProfile = async (req, res) => {
     const user = await userModel.findOne({ _id: req.params.userId });
-    const posts = await postModel.find({userId : req.params.userId}).populate('userId', 'username').sort({date: -1})    
-    
+    const posts = await postModel.find({ userId: req.params.userId }).populate('userId', 'username').sort({ date: -1 })
+
     res.render('profile', { user, posts });
 }
 
 exports.getImg = (req, res) => {
-    res.render('img',{user: req.user});
+    res.render('img', { user: req.user });
 }
 
 exports.postImg = async (req, res) => {
-    const picture = req.file ? '/uploads/' + req.file.filename : req.user.profilePic;
-    console.log(picture);
-    
-    let user = await userModel.findByIdAndUpdate({_id:req.params.userId},
-        {profilePic: picture,},{new:true});
-    
-    console.log(user);
-    res.redirect('/profile/' + user._id);
+
+    const { name, bio } = req.body;
+    let user = await userModel.findOne({ _id: req.params.userId })
+
+    const picture = req.file ? /uploads/ + req.file.filename : user.profilepic
+
+    await userModel.findOneAndUpdate(
+        { _id: user._id },
+        {
+            username: name,
+            bio: bio,
+            profilepic: picture
+        },
+        { new: true }
+    )
+    await user.save();
+
+    res.redirect('/post/dashboard')
 }

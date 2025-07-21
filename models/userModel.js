@@ -5,6 +5,10 @@ const userSchema = mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    bio: {
+  type: String,
+  default: ''
+},
     posts:[{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'post'
