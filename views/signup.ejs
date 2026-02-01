@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up | Twitter Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md transition">
+    <!-- Logo + Title -->
+    <div class="flex flex-col items-center mb-6">
+      <svg class="w-12 h-12 text-blue-500 mb-3" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22.46 5.92c-.8.36-1.66.61-2.56.72...Z"/>
+      </svg>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Create your account</h1>
+    </div>
+
+    <!-- Signup Form -->
+    <form action="/register" method="POST" class="space-y-5">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+        <input id="name" name="name" type="text" required
+               class="mt-1 w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500" />
+      </div>
+
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+        <input id="username" name="username" type="text" required
+               class="mt-1 w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500" />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+        <input id="email" name="email" type="email" required
+               class="mt-1 w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500" />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+        <input id="password" name="password" type="password" required
+               class="mt-1 w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500" />
+      </div>
+
+      <button type="submit"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition">
+        Sign Up
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+      Already have an account?
+      <a href="/login" class="text-blue-500 hover:underline">Log in</a>
+    </p>
+  </div>
+
+</body>
+</html>

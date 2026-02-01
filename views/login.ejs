@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Cuteier Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 w-full max-w-md transition">
+    <!-- Logo + Title -->
+    <div class="flex flex-col items-center mb-6">
+      <svg viewBox="0 0 24 24" class="w-12 h-12 text-blue-500 mb-3" fill="currentColor">
+        <path d="M22.46 5.92c-.8.36-1.67.61-2.58...Z"/>
+      </svg>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Sign in to Cuteier</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form action="/login" method="POST" class="space-y-5">
+      <div> 
+        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+        <input id="email" name="email" type="email" required
+               class="mt-1 w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500" />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+        <input id="password" name="password" type="password" required
+               class="mt-1 w-full rounded-md bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500" />
+      </div>
+
+      <button type="submit"
+              class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow transition">
+        Log in
+      </button>
+    </form>
+
+    <div class="mt-6 flex justify-between text-sm text-gray-600 dark:text-gray-400">
+      <a href="#" class="hover:underline">Forgot password?</a>
+      <a href="/register" class="text-blue-500 hover:underline">Sign up</a>
+    </div>
+  </div>
+
+</body>
+</html>

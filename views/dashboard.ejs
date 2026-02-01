@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen font-sans">
+
+
+  <div class="max-w-3xl mx-auto py-10 px-4">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8 bg-gray-800 p-5 rounded-xl shadow-md">
+      <h2 class="text-2xl font-bold text-indigo-400">👀 Welcome, <%= user.username %>!</h2>
+      <div class="space-x-3 space-y-2 ">
+        <a href="/profile/<%= user._id %>"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md shadow transition">
+          Profile
+        </a>
+        <a href="/logout"
+          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow transition">
+          Logout
+        </a>
+      </div>
+    </header>
+
+    <!-- Post Creator -->
+    <section class="bg-gray-800 rounded-xl shadow-md p-6">
+      <form action="/post/create" method="POST" class="space-y-4">
+        <label for="postContent" class="block text-gray-300 font-semibold">Create a Post</label>
+        <textarea id="postContent" name="content" rows="3" maxlength="200" required
+          class="w-full p-4 border border-gray-700 bg-gray-900 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+          placeholder="What's happening?"></textarea>
+        <div class="flex justify-end">
+          <button type="submit"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-semibold transition">
+            ➕ Post
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Posts Feed -->
+    <section class="mt-8 space-y-6">
+      <% posts.forEach((post)=>{ %>
+        <div class="bg-gray-800 rounded-xl shadow-md p-5">
+          <div class="flex justify-between items-start">
+            <div>
+              <h2 class="text-indigo-400 font-semibold"> <img src="<%= post.userId.profilepic %>" alt="" class="w-5 h-5 cover inline rounded-xl"> @<%= post.userId.username %></h2>
+              <p class="text-white mt-1"><%= post.content %></p>
+            </div>
+            <small class="text-gray-500"><%= post.date.toLocaleString() %></small>
+          </div>
+
+          <div class="flex justify-between items-center mt-4">
+            <!-- Likes -->
+            <div class="space-x-2">
+              <% if(post.likes.includes(user._id)){ %>
+                <a href="/post/like/<%= post._id %>" class="text-blue-400 font-medium hover:underline">
+                  ❤️ <%= post.likes.length %> Liked
+                </a>
+              <% } else { %>
+                <a href="/post/like/<%= post._id %>" class="text-gray-400 hover:underline">
+                  🤍 <%= post.likes.length %> Like
+                </a>
+              <% } %>
+            </div>
+
+            <!-- Follow/Unfollow -->
+             <% if(post.userId._id.toString() !== user._id.toString()){ %>
+              <a href="/post/follow/<%= user._id %>/<%= post._id %>"
+                class="text-sm bg-sky-600 hover:bg-sky-700 text-white px-3 py-1 rounded transition">
+                <% if (post.userId.followers.includes(user._id)) { %>
+                  Unfollow
+                <% } else { %>
+                  Follow
+                <% } %>
+              </a>
+
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    </section>
+  </div>
+</body>
+
+
+</html>
