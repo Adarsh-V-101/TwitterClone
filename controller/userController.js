@@ -119,7 +119,6 @@ catch(err){
     console.log(err);
     res.render('error',{message:'Someting went wrong'})
     
-=======
 exports.getRegister = (req, res) => {
     res.render('signup')
 }
