@@ -2,11 +2,12 @@ const userModel = require('../models/userModel');
 const postModel = require('../models/postModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+try{
 
-exports.getRegister = (req, res) => {
-    res.render('signup')
-}
-
+    exports.getRegister = (req, res) => {
+        res.render('signup')
+    }
+    
 exports.postRegister = async (req, res) => {
     let { name, username, email, password } = req.body;
 
@@ -18,7 +19,7 @@ exports.postRegister = async (req, res) => {
         if (existinguser) {
             return res.status(400).send('existing user with this email');
         }
-
+        
         bcrypt.genSalt(10, async (err, salt) => {
             bcrypt.hash(password, salt, async (err, hash) => {
                 if (err) {
@@ -72,7 +73,7 @@ exports.postLogin = async (req, res) => {
             res.redirect('/post/dashboard');
         })
 
-
+        
     }
 }
 
@@ -84,7 +85,7 @@ exports.getLogout = (req, res) => {
 exports.getProfile = async (req, res) => {
     const user = await userModel.findOne({ _id: req.params.userId });
     const posts = await postModel.find({ userId: req.params.userId }).populate('userId', 'username').sort({ date: -1 })
-
+    
     res.render('profile', { user, posts });
 }
 
@@ -93,7 +94,7 @@ exports.getImg = (req, res) => {
 }
 
 exports.postImg = async (req, res) => {
-
+    
     const { name, bio } = req.body;
     let user = await userModel.findOne({ _id: req.params.userId })
 
@@ -111,4 +112,10 @@ exports.postImg = async (req, res) => {
     await user.save();
 
     res.redirect('/post/dashboard')
+}
+}
+catch(err){
+    console.log(err);
+    res.render('error',{message:'Someting went wrong'})
+
 }
