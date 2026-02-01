@@ -3,7 +3,6 @@ const postModel = require('../models/postModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
 try{
 
     exports.getRegister = (req, res) => {
@@ -229,5 +228,4 @@ exports.postImg = async (req, res) => {
     await user.save();
 
     res.redirect('/post/dashboard')
->>>>>>> 1ecc8e0e117a78a56bc78c7b42261a04f3beb330
 }
